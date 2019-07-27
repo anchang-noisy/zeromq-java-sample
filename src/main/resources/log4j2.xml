@@ -2,19 +2,34 @@
 <!DOCTYPE project>
 <Configuration status="off">
     <Properties>
-        <Property name="format1">%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] %-6p %c{10} %m%n</Property>
+        <Property name="loglayout">%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] %-6p %c{10} %m%n</Property>
     </Properties>
+
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout>
-                <pattern>${format1}</pattern>
+                <pattern>${loglayout}</pattern>
             </PatternLayout>
         </Console>
     </Appenders>
 
+    <Appenders>
+        <RollingFile name="rolling" fileName="C:/log/app.log" filePattern="C:/log/app-%d{yyyy-MM-dd}-%i.zip">
+            <PatternLayout>
+                <pattern>${loglayout}</pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="20 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+
     <Loggers>
-        <Root level="trace">
-            <AppenderRef ref="Console" />
+        <Root level="debug">
+            <AppenderRef ref="rolling" />
         </Root>
     </Loggers>
 </Configuration>
