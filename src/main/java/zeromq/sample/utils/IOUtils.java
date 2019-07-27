@@ -9,4 +9,10 @@ public class IOUtils {
       obj.close();
     } catch (Exception e) {}
   }
+
+  public static void sleep(Long sleepTimeMs) {
+    try {
+      Thread.sleep(sleepTimeMs);
+    } catch (InterruptedException e) {}
+  }
 }
